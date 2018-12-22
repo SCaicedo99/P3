@@ -69,18 +69,10 @@ class DFA:
     def testAccept(self, seq):
         indx = -1
         characters = list(seq)
-        helper = True
         for i in range(len(characters)):
             if self.testMatch(seq[i:]):
-                indx = i
-                helper = True
-            else:
-                helper = False
-                indx == -1
-        if helper:
-            return indx
-        else:
-            return -1
+                return i
+        return indx
 
 
 
@@ -105,7 +97,7 @@ if __name__ == '__main__':
     dfa.build_DFA()
     song_lib = SongLibrary()   # Creating a new songLibrary object
     song_lib.loadLibrary()   # Loading the library
-    # print(dfa.testMatch('AACACATCACAGA'))     # Testing a sequence
+    print(dfa.testAccept('AACACATCACAGA'))     # Testing a sequence
     # print(dfa.testAccept('CGTAGTCTAGAGCACACTAAATGAGACATCTTAGAGGAGATAGGCGTAGATCCGGTTACAACACATCACAGA'))
-    # print(dfa.testSongLibrary(song_lib))  # Testing song library
+    print(dfa.testSongLibrary(song_lib))  # Testing song library
     print("finish")
