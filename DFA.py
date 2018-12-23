@@ -11,6 +11,7 @@ class DFA:
 
     """
     def build_DFA(self):
+        # This is pretty straightforward... Create vertices, add edges, and set the acceptingState
         v0 = Vertex(0)
         self.start = v0
         v1 = Vertex(1)
@@ -48,15 +49,17 @@ class DFA:
     """
     def testMatch(self, seq):
 
-        characters = list(seq)
-        current = self.start
+        characters = list(seq) # Create a list with each character
+        current = self.start # Set the start as the start vertex
         for i in range(len(characters)):
+            # It will go into the next vertex only if its the right sequence, if it finds a character that is not in the
+            # sequence, next will be None
             next = current.followEdge(characters[i])
             if next is None:
                 return False
             else:
-                current = next
-        if current.isAcceptingState:
+                current = next  # Sets the next vertex as the current.
+        if current.isAcceptingState: # If the last vertex is an Accepting state it will return True
             return True
         return False
 
@@ -70,6 +73,7 @@ class DFA:
         indx = -1
         characters = list(seq)
         for i in range(len(characters)):
+            # Using the testMatch function with each subsequence of the sequence given each time starting at i to the end
             if self.testMatch(seq[i:]):
                 return i
         return indx
@@ -83,9 +87,11 @@ class DFA:
 
     """
     def testSongLibrary(self, song_lib):
-        matchIndx = []
-        for song in song_lib.songArray:
+        matchIndx = [] # Creating list to store the indices for the songs
+        for song in song_lib.songArray: # Iterating through all the songs
+            # Using the testAccept function to get the index at which the subsequence will be accepted
             indx = self.testAccept(song.DNA)
+            # Appends it to the matchIndx list
             matchIndx.append(indx)
         return matchIndx
 
